@@ -1,13 +1,13 @@
 package de.htwBerlin.filmebewertung.web.api;
 
-public class FilmCreateRequest {
+public class FilmManipulationRequest {
 
     private String filmName;
     private int bewertung;
     private String kommentar;
     private String bewerter;
 
-    public FilmCreateRequest(String filmName, int bewertung, String kommentar, String bewerter) {
+    public FilmManipulationRequest(String filmName, int bewertung, String kommentar, String bewerter) {
         this.filmName = filmName;
         this.bewertung = bewertung;
         this.kommentar = kommentar;
