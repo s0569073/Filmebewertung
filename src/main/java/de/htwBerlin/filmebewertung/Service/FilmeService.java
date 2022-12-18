@@ -50,11 +50,14 @@ public class FilmeService {
         }
 
         var filmeEntity = filmeEntityOptional.get();
+
         filmeEntity.setFilmName(request.getFilmName());
         filmeEntity.setBewerter(request.getBewerter());
         filmeEntity.setBewertung(request.getBewertung());
         filmeEntity.setKommentar(request.getKommentar());
+
         filmeEntity = filmeRepository.save(filmeEntity);
+
         return transformEntity(filmeEntity);
     }
 

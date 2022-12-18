@@ -14,6 +14,8 @@ public class FilmManipulationRequest {
         this.bewerter = bewerter;
     }
 
+    public FilmManipulationRequest() {}
+
     public String getFilmName() {
         return filmName;
     }
