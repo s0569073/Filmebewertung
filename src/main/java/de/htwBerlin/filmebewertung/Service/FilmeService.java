@@ -13,34 +13,29 @@ import java.util.stream.Collectors;
 public class FilmeService {
 
     private final FilmeRepository filmeRepository;
+    private final FilmTransformer filmTransformer;
 
-    public FilmeService(FilmeRepository filmeRepository) {
+    public FilmeService(FilmeRepository filmeRepository, FilmTransformer filmTransformer) {
+
         this.filmeRepository = filmeRepository;
+        this.filmTransformer = filmTransformer;
     }
 
-    private Film transformEntity(FilmeEntity filmeEntity){
-        return new Film(filmeEntity.getId(),
-                        filmeEntity.getFilmName(),
-                        filmeEntity.getBewertung(),
-                        filmeEntity.getKommentar(),
-                        filmeEntity.getBewerter()
-        );
-    }
     public List<Film> findAll(){
         List<FilmeEntity> filme =filmeRepository.findAll();
         return filme.stream()
-                .map(this::transformEntity)
+                .map(filmTransformer::transformEntity)
                 .collect(Collectors.toList());
     }
 
     public Film findById(Long id){
         var filmEntity = filmeRepository.findById(id);
-        return filmEntity.map(this::transformEntity).orElse(null);
+        return filmEntity.map(filmTransformer::transformEntity).orElse(null);
     }
     public Film create(FilmManipulationRequest request){
         var filmeEntity = new FilmeEntity(request.getFilmName(), request.getBewertung(), request.getKommentar(), request.getBewerter());
         filmeEntity = filmeRepository.save(filmeEntity);
-        return transformEntity(filmeEntity);
+        return filmTransformer.transformEntity(filmeEntity);
     }
 
     public Film update(Long id, FilmManipulationRequest request){
@@ -58,7 +53,7 @@ public class FilmeService {
 
         filmeEntity = filmeRepository.save(filmeEntity);
 
-        return transformEntity(filmeEntity);
+        return filmTransformer.transformEntity(filmeEntity);
     }
 
     public boolean deleteById(Long id){
