@@ -31,14 +31,14 @@ public class FilmServiceTest {
         doReturn(true).when(repository).existsById(givenId);
 
         boolean result = underTest.deleteById(givenId);
-        
+
         verify(repository).deleteById(givenId);
         assertThat(result).isTrue();
     }
 
     @Test
-    @DisplayName("should return false if person to delete does not exist")
-    void person_does_not_exist() {
+    @DisplayName("film does not exist")
+    void film_does_not_exist() {
         // given
         Long givenId = 111L;
         doReturn(false).when(repository).existsById(givenId);
